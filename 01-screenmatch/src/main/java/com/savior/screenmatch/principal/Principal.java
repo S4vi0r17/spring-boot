@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
-    private Scanner scanner = new Scanner(System.in);
-    private ConsumoAPI consumoAPI = new ConsumoAPI();
-    private final String API = "https://www.omdbapi.com/?t=";
-    private final String API_KEY = "&apikey=991b34ae";
-    private ConvierteDatos conversor = new ConvierteDatos();
+    private final Scanner scanner = new Scanner(System.in);
+    private final ConsumoAPI consumoAPI = new ConsumoAPI();
+    private static final String API = "https://www.omdbapi.com/?t=";
+    private static final String API_KEY = "&apikey=991b34ae";
+    private final ConvierteDatos conversor = new ConvierteDatos();
 
     public void muestraMenu() {
         System.out.print("Escribe el nombre de la serie que deseas buscar: ");
