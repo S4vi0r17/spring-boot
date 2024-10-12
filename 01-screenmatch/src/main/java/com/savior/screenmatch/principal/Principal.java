@@ -31,5 +31,12 @@ public class Principal {
             temporadas.add(datosTemporadas);
         }
         temporadas.forEach(System.out::println);
+
+        // Mostrar solo el titulo de los episodios para todas las temporadas
+        // temporadas.forEach(temporada -> temporada.episodios().forEach(episodio -> System.out.println(episodio.titulo())));
+        for (int i = 0; i < datosSerie.totalTemporadas(); i++) {
+            System.out.println("Temporada " + (i + 1));
+            temporadas.get(i).episodios().forEach(episodio -> System.out.println(episodio.titulo()));
+        }
     }
 }
