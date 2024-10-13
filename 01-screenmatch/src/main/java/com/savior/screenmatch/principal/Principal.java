@@ -1,13 +1,16 @@
 package com.savior.screenmatch.principal;
 
+import com.savior.screenmatch.model.DatosEpisodio;
 import com.savior.screenmatch.model.DatosSerie;
 import com.savior.screenmatch.model.DatosTemporadas;
 import com.savior.screenmatch.service.ConsumoAPI;
 import com.savior.screenmatch.service.ConvierteDatos;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
     private final Scanner scanner = new Scanner(System.in);
@@ -38,5 +41,22 @@ public class Principal {
             System.out.println("Temporada " + (i + 1));
             temporadas.get(i).episodios().forEach(episodio -> System.out.println(episodio.titulo()));
         }
+
+        // Convertir toda la informacion en una lista de tipo DatosEpisodio
+        List<DatosEpisodio> datosEpisodios = temporadas.stream()
+                .flatMap(temporada -> temporada.episodios().stream())
+                // .collect(Collectors.toList()); // Lista mutable
+                .toList(); // Lista inmutable
+
+        // System.out.println("DatosEpisodio");
+        // System.out.println(datosEpisodios);
+
+        // Top 5 episodios con mayor evaluacion
+        System.out.println("Top 5 episodios con mayor evaluacion");
+        datosEpisodios.stream()
+                .filter(episodio -> !episodio.evaluacion().equals("N/A"))
+                .sorted(Comparator.comparing(DatosEpisodio::evaluacion).reversed())
+                .limit(5)
+                .forEach(System.out::println);
     }
 }
