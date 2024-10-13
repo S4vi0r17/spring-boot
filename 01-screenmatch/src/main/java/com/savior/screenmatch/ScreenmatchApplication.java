@@ -1,5 +1,6 @@
 package com.savior.screenmatch;
 
+import com.savior.screenmatch.principal.EjemploStreams;
 import com.savior.screenmatch.principal.Principal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,9 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Principal principal = new Principal();
-		principal.muestraMenu();
+		// Principal principal = new Principal();
+		// principal.muestraMenu();
+		EjemploStreams ejemploStreams = new EjemploStreams();
+		ejemploStreams.muestraEjemplo();
 	}
 }
