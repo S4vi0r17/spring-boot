@@ -3,6 +3,7 @@ package com.savior.screenmatch.principal;
 import com.savior.screenmatch.model.DatosEpisodio;
 import com.savior.screenmatch.model.DatosSerie;
 import com.savior.screenmatch.model.DatosTemporadas;
+import com.savior.screenmatch.model.Episodio;
 import com.savior.screenmatch.service.ConsumoAPI;
 import com.savior.screenmatch.service.ConvierteDatos;
 
@@ -58,5 +59,16 @@ public class Principal {
                 .sorted(Comparator.comparing(DatosEpisodio::evaluacion).reversed())
                 .limit(5)
                 .forEach(System.out::println);
+
+        // Convertir datos a una lista de tipo Episodio
+        List<Episodio> episodios = temporadas.stream()
+                .flatMap(temporada -> temporada.episodios().stream()
+                                .map(episodio -> new Episodio(
+                                        temporada.numeroTemporada(),
+                                        episodio
+                                ))
+                        ).collect(Collectors.toList());
+
+        episodios.forEach(System.out::println);
     }
 }
