@@ -7,6 +7,8 @@ import com.savior.screenmatch.model.Episodio;
 import com.savior.screenmatch.service.ConsumoAPI;
 import com.savior.screenmatch.service.ConvierteDatos;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -70,5 +72,25 @@ public class Principal {
                         ).collect(Collectors.toList());
 
         episodios.forEach(System.out::println);
+
+        // Busqueda de episodos a partir de una fecha
+        System.out.print("Escribe la fecha de estreno (yyyy): ");
+        var fecha = scanner.nextInt();
+        scanner.nextLine();
+
+        LocalDate fechaBusqueda = LocalDate.of(fecha, 1, 1);
+        System.out.println("Episodios a partir de la fecha " + fechaBusqueda);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        episodios.stream()
+                .filter(episodio -> episodio.getFechaEstreno() != null && episodio.getFechaEstreno().isAfter(fechaBusqueda))
+                .forEach(episodio -> System.out.println(
+                        "Temporada: " + episodio.getTemporada() +
+                                " Episodio: " + episodio.getNumeroEpisodio() +
+                                " Titulo: " + episodio.getTitulo() +
+                                " Evaluacion: " + episodio.getEvaluacion() +
+                                " Fecha de estreno: " + episodio.getFechaEstreno().format(formatter)
+                ));
     }
 }
