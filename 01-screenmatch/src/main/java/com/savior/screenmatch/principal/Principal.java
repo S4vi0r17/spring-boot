@@ -38,12 +38,14 @@ public class Principal {
         }
         temporadas.forEach(System.out::println);
 
+
         // Mostrar solo el titulo de los episodios para todas las temporadas
         // temporadas.forEach(temporada -> temporada.episodios().forEach(episodio -> System.out.println(episodio.titulo())));
         for (int i = 0; i < datosSerie.totalTemporadas(); i++) {
             System.out.println("Temporada " + (i + 1));
             temporadas.get(i).episodios().forEach(episodio -> System.out.println(episodio.titulo()));
         }
+
 
         // Convertir toda la informacion en una lista de tipo DatosEpisodio
         List<DatosEpisodio> datosEpisodios = temporadas.stream()
@@ -54,13 +56,20 @@ public class Principal {
         // System.out.println("DatosEpisodio");
         // System.out.println(datosEpisodios);
 
+
         // Top 5 episodios con mayor evaluacion
         System.out.println("Top 5 episodios con mayor evaluacion");
         datosEpisodios.stream()
-                .filter(episodio -> !episodio.evaluacion().equals("N/A"))
+                .filter(episodio -> !episodio.evaluacion().equalsIgnoreCase("N/A"))
+                .peek(episodio -> System.out.println("Primer filtro (N/A): " + episodio))
                 .sorted(Comparator.comparing(DatosEpisodio::evaluacion).reversed())
+                .peek(episodio -> System.out.println("Segundo filtro (ordenamiento): " + episodio))
+                .map(episode -> episode.titulo().toUpperCase())
+                .peek(episodio -> System.out.println("Tercer filtro (mapeo): " + episodio))
                 .limit(5)
+                .peek(episodio -> System.out.println("Cuarto filtro (limit): " + episodio))
                 .forEach(System.out::println);
+
 
         // Convertir datos a una lista de tipo Episodio
         List<Episodio> episodios = temporadas.stream()
@@ -71,7 +80,8 @@ public class Principal {
                                 ))
                         ).collect(Collectors.toList());
 
-        episodios.forEach(System.out::println);
+        // episodios.forEach(System.out::println);
+
 
         // Busqueda de episodos a partir de una fecha
         System.out.print("Escribe la fecha de estreno (yyyy): ");
