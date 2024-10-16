@@ -9,10 +9,7 @@ import com.savior.screenmatch.service.ConvierteDatos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -102,5 +99,33 @@ public class Principal {
                                 " Evaluacion: " + episodio.getEvaluacion() +
                                 " Fecha de estreno: " + episodio.getFechaEstreno().format(formatter)
                 ));
+
+
+        // Busca episodios por un pedazo de titulo
+        System.out.print("Escribe el pedazo de titulo que deseas buscar: ");
+        var pedazoTitulo = scanner.nextLine();
+        System.out.println("Episodios que contienen " + pedazoTitulo);
+
+        // episodios.stream().
+        //        filter(episodio -> episodio.getTitulo().contains(pedazoTitulo))
+        //        .findFirst()
+        //        .ifPresentOrElse(System.out::println, () -> System.out.println("No se encontro ningun episodio"));
+
+        Optional<Episodio> episodioOptional = episodios.stream().
+                filter(episodio -> episodio.getTitulo().toUpperCase().contains(pedazoTitulo.toUpperCase()))
+                // .findAny();
+                .findFirst();
+
+        if (episodioOptional.isPresent()) {
+            System.out.println("Episodio encontrado: " +episodioOptional.get());
+        } else {
+            System.out.println("No se encontro ningun episodio");
+        }
+
+        /*
+        * Diferencia entre findAny y findFirst:
+        * findAny: Devuelve cualquier elemento que cumpla con el predicado, no necesariamente el primero.
+        * findFirst: Devuelve el primer elemento que cumpla con el predicado.
+        */
     }
 }
