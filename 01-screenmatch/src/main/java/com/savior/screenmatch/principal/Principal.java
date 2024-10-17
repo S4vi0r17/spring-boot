@@ -111,6 +111,7 @@ public class Principal {
         //        .findFirst()
         //        .ifPresentOrElse(System.out::println, () -> System.out.println("No se encontro ningun episodio"));
 
+        /*
         Optional<Episodio> episodioOptional = episodios.stream().
                 filter(episodio -> episodio.getTitulo().toUpperCase().contains(pedazoTitulo.toUpperCase()))
                 // .findAny();
@@ -121,11 +122,20 @@ public class Principal {
         } else {
             System.out.println("No se encontro ningun episodio");
         }
+        */
 
         /*
         * Diferencia entre findAny y findFirst:
         * findAny: Devuelve cualquier elemento que cumpla con el predicado, no necesariamente el primero.
         * findFirst: Devuelve el primer elemento que cumpla con el predicado.
         */
+
+        Map<Integer,Double> evaluacionPorTemporada = episodios.stream()
+                .filter(episodio -> episodio.getEvaluacion() != 0.0)
+                .collect(Collectors.groupingBy(Episodio::getTemporada,
+                        Collectors.averagingDouble(Episodio::getEvaluacion)));
+
+        System.out.println("Evaluacion por temporada");
+        System.out.println(evaluacionPorTemporada);
     }
 }
