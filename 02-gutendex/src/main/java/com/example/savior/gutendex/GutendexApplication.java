@@ -1,5 +1,6 @@
 package com.example.savior.gutendex;
 
+import com.example.savior.gutendex.principal.Principal;
 import com.example.savior.gutendex.service.ConsumoAPI;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,9 +13,9 @@ public class GutendexApplication implements CommandLineRunner {
         SpringApplication.run(GutendexApplication.class, args);
     }
 
-	@Override
-	public void run(String... args) throws Exception {
-		ConsumoAPI consumoAPI = new ConsumoAPI();
-		System.out.println(consumoAPI.obtenerLibros());
-	}
+    @Override
+    public void run(String... args) throws Exception {
+        Principal principal = new Principal();
+        principal.mostrarMenu();
+    }
 }

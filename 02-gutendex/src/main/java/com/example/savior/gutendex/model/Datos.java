@@ -1,2 +1,12 @@
-package com.example.savior.gutendex.model;public record Datos() {
-}
+package com.example.savior.gutendex.model;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record Datos(
+        @JsonAlias("results")
+        List<DatosLibro> libros
+) { }
