@@ -6,8 +6,10 @@ import com.example.savior.gutendex.service.ConsumoAPI;
 import com.example.savior.gutendex.service.ConvierteDatos;
 
 import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
     private static final String URL_BASE = "https://gutendex.com/books/";
@@ -34,8 +36,8 @@ public class Principal {
         var nombreLibro = scanner.nextLine();
         System.out.println("Libros encontrados con el nombre " + nombreLibro);
         json = consumoAPI.obtenerDatos(URL_BASE + "?search=" + nombreLibro.replace(" ", "+")); // %20
-        datos = convierteDatos.obtenerDatos(json, Datos.class);
-        Optional<DatosLibro> libro = datos.libros().stream()
+        var datosBusqueda = convierteDatos.obtenerDatos(json, Datos.class);
+        Optional<DatosLibro> libro = datosBusqueda.libros().stream()
                 .filter(libro1 -> libro1.titulo().toUpperCase().contains(nombreLibro.toUpperCase()))
                 .findFirst();
 
@@ -44,5 +46,18 @@ public class Principal {
         } else {
             System.out.println("No se encontraron libros con el nombre " + nombreLibro);
         }
+
+        // Trabajando con estadísticas
+        DoubleSummaryStatistics estadisticas = datos.libros().stream()
+                .filter(libro1 -> libro1.numeroDescargas() > 0)
+                // .collect(Collectors.summarizingDouble(DatosLibro::numeroDescargas)); // Un poco menos eficiente
+                .mapToDouble(DatosLibro::numeroDescargas)
+                .summaryStatistics();
+
+        System.out.println("Estadísticas de descargas");
+        System.out.println("Promedio: " + estadisticas.getAverage());
+        System.out.println("Máximo: " + estadisticas.getMax());
+        System.out.println("Mínimo: " + estadisticas.getMin());
+        System.out.println("Suma: " + estadisticas.getSum());
     }
 }
