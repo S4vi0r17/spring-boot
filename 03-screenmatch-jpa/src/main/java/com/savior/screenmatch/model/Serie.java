@@ -19,7 +19,8 @@ public class Serie {
         this.evaluacion = OptionalDouble.of(Double.parseDouble(datosSerie.evaluacion())).orElse(0.0);
         this.poster = datosSerie.poster();
         this.genero = Categoria.fromString(datosSerie.genero().split(",")[0].trim());
-        this.sinopsis = ConsultaChatGPT.obtenerTraduccion(datosSerie.sinopsis());
+        // this.sinopsis = ConsultaChatGPT.obtenerTraduccion(datosSerie.sinopsis());
+        this.sinopsis = datosSerie.sinopsis();
         this.actores = datosSerie.actores();
     }
 
