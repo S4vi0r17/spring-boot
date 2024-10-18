@@ -1,9 +1,6 @@
 package com.savior.screenmatch.principal;
 
-import com.savior.screenmatch.model.DatosEpisodio;
-import com.savior.screenmatch.model.DatosSerie;
-import com.savior.screenmatch.model.DatosTemporadas;
-import com.savior.screenmatch.model.Episodio;
+import com.savior.screenmatch.model.*;
 import com.savior.screenmatch.service.ConsumoAPI;
 import com.savior.screenmatch.service.ConvierteDatos;
 
@@ -68,6 +65,14 @@ public class Principal {
     }
 
     private void mostrarSeriesBuscadas() {
-        datosSeries.forEach(System.out::println);
+        // datosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = datosSeries.stream()
+                // .map(d -> new Serie(d))
+                .map(Serie::new)
+                .collect(Collectors.toList());
+
+        series.stream().sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
     }
 }
