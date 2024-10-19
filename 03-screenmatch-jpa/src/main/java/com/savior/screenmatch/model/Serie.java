@@ -25,6 +25,12 @@ public class Serie {
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episodio> episodios;
 
+    /*
+    * Diference between LAZY and EAGER fetch type
+    * LAZY: The data is loaded only when it is requested.
+    * EAGER: The data is loaded immediately
+    * */
+
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
         this.totalTemporadas = datosSerie.totalTemporadas();
