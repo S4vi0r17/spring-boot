@@ -22,7 +22,7 @@ public class Serie {
     private String sinopsis;
     private String actores;
     // @OneToMany(mappedBy = "serie")
-    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episodio> episodios;
 
     public Serie(DatosSerie datosSerie) {
@@ -37,7 +37,8 @@ public class Serie {
     }
 
     // En JPA es necesario tener un constructor vacío
-    public Serie() { }
+    public Serie() {
+    }
 
     @Override
     public String toString() {
@@ -47,7 +48,17 @@ public class Serie {
                 ", evaluacion=" + evaluacion +
                 ", poster='" + poster + '\'' +
                 ", sinopsis='" + sinopsis + '\'' +
-                ", actores='" + actores + '\'';
+                ", actores='" + actores + '\'' +
+                ", episodios=" + episodios;
+    }
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        episodios.forEach(episodio -> episodio.setSerie(this));
+        this.episodios = episodios;
     }
 
     public Long getId() {
