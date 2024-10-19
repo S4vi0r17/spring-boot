@@ -36,6 +36,9 @@ public class Serie {
         this.actores = datosSerie.actores();
     }
 
+    // En JPA es necesario tener un constructor vacío
+    public Serie() { }
+
     @Override
     public String toString() {
         return "titulo='" + titulo + '\'' +
