@@ -1,6 +1,7 @@
 package com.savior.screenmatch.principal;
 
 import com.savior.screenmatch.model.*;
+import com.savior.screenmatch.repository.SerieRepository;
 import com.savior.screenmatch.service.ConsumoAPI;
 import com.savior.screenmatch.service.ConvierteDatos;
 
@@ -16,6 +17,11 @@ public class Principal {
     private static final String API_KEY = "&apikey=991b34ae";
     private final ConvierteDatos conversor = new ConvierteDatos();
     private List<DatosSerie> datosSeries = new ArrayList<>();
+    private SerieRepository serieRepository;
+
+    public Principal(SerieRepository serieRepository) {
+        this.serieRepository = serieRepository;
+    }
 
     public void muestraMenu() {
         var opcion = -1;
@@ -60,7 +66,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DatosSerie datosSerie = getDatosSerie();
-        datosSeries.add(datosSerie);
+        // datosSeries.add(datosSerie);
+        Serie serie = new Serie(datosSerie);
+        serieRepository.save(serie);
         System.out.println(datosSerie);
     }
 

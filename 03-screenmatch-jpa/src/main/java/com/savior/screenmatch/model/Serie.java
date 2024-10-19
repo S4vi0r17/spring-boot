@@ -3,6 +3,7 @@ package com.savior.screenmatch.model;
 import com.savior.screenmatch.service.ConsultaChatGPT;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
@@ -20,6 +21,9 @@ public class Serie {
     private Categoria genero;
     private String sinopsis;
     private String actores;
+    // @OneToMany(mappedBy = "serie")
+    @Transient
+    private List<Episodio> episodios;
 
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
