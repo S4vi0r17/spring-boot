@@ -30,6 +30,8 @@ public class Principal {
             System.out.println("1. Buscar serie");
             System.out.println("2. Buscar episodios");
             System.out.println("3. Mostrar series buscadas");
+            System.out.println("4. Buscar series por titulo");
+            System.out.println("5. Mostrar top 5 series");
             System.out.println("0. Salir");
             System.out.print("Escribe la opcion que deseas: ");
             opcion = scanner.nextInt();
@@ -38,6 +40,8 @@ public class Principal {
                 case 1 -> buscarSerieWeb();
                 case 2 -> buscarEpisodioPorSerie();
                 case 3 -> mostrarSeriesBuscadas();
+                case 4 -> buscarSeriesPorTitulo();
+                case 5 -> buscarTop5Series();
                 case 0 -> System.out.println("Cerrando aplicacion...");
                 default -> System.out.println("Opcion no valida");
             }
@@ -109,5 +113,20 @@ public class Principal {
 
         series.stream().sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);
+    }
+
+    private void buscarSeriesPorTitulo() {
+        System.out.print("Escribe el titulo de la serie que deseas buscar: ");
+        var titulo = scanner.nextLine();
+        var serie = serieRepository.findByTituloContainsIgnoreCase(titulo);
+
+        serie.ifPresentOrElse(System.out::println, () -> System.out.println("No se encontro la serie"));
+    }
+
+    private void buscarTop5Series() {
+        var top5 = serieRepository.findTop5ByOrderByEvaluacionDesc();
+        top5.forEach(serie -> {
+            System.out.println(serie.getTitulo() + " - " + serie.getEvaluacion());
+        });
     }
 }
