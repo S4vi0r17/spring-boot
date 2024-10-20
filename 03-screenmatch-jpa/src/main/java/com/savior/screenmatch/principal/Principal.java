@@ -33,6 +33,7 @@ public class Principal {
             System.out.println("4. Buscar series por titulo");
             System.out.println("5. Mostrar top 5 series");
             System.out.println("6. Buscar series por categoria");
+            System.out.println("7. Buscar series por temporadas y evaluacion");
             System.out.println("0. Salir");
             System.out.print("Escribe la opcion que deseas: ");
             opcion = scanner.nextInt();
@@ -44,6 +45,7 @@ public class Principal {
                 case 4 -> buscarSeriesPorTitulo();
                 case 5 -> buscarTop5Series();
                 case 6 -> buscarSeriesPorCategoria();
+                case 7 -> buscarSeriesPorTemporadasYEvaluacion();
                 case 0 -> System.out.println("Cerrando aplicacion...");
                 default -> System.out.println("Opcion no valida");
             }
@@ -139,5 +141,15 @@ public class Principal {
         var serie = serieRepository.findByGenero(categoria);
         System.out.println("Series encontradas con la categoria " + genero);
         serie.forEach(System.out::println);
+    }
+
+    private void buscarSeriesPorTemporadasYEvaluacion() {
+        System.out.println("Buscar series por un maximo de temporadas y una evaluacion minima");
+        System.out.print("Escribe el numero de temporadas: ");
+        var temporadas = scanner.nextInt();
+        System.out.print("Escribe la evaluacion: ");
+        var evaluacion = scanner.nextDouble();
+        var series = serieRepository.findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(temporadas, evaluacion);
+        series.forEach(System.out::println);
     }
 }
