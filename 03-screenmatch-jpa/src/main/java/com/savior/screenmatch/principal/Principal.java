@@ -32,6 +32,7 @@ public class Principal {
             System.out.println("3. Mostrar series buscadas");
             System.out.println("4. Buscar series por titulo");
             System.out.println("5. Mostrar top 5 series");
+            System.out.println("6. Buscar series por categoria");
             System.out.println("0. Salir");
             System.out.print("Escribe la opcion que deseas: ");
             opcion = scanner.nextInt();
@@ -42,6 +43,7 @@ public class Principal {
                 case 3 -> mostrarSeriesBuscadas();
                 case 4 -> buscarSeriesPorTitulo();
                 case 5 -> buscarTop5Series();
+                case 6 -> buscarSeriesPorCategoria();
                 case 0 -> System.out.println("Cerrando aplicacion...");
                 default -> System.out.println("Opcion no valida");
             }
@@ -128,5 +130,14 @@ public class Principal {
         top5.forEach(serie -> {
             System.out.println(serie.getTitulo() + " - " + serie.getEvaluacion());
         });
+    }
+
+    private void buscarSeriesPorCategoria() {
+        System.out.print("Escribe la genero/categoria de la serie que deseas buscar: ");
+        var genero = scanner.nextLine();
+        var categoria = Categoria.fromStringEspanol(genero);
+        var serie = serieRepository.findByGenero(categoria);
+        System.out.println("Series encontradas con la categoria " + genero);
+        serie.forEach(System.out::println);
     }
 }
