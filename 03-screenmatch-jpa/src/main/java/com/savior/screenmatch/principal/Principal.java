@@ -34,6 +34,7 @@ public class Principal {
             System.out.println("5. Mostrar top 5 series");
             System.out.println("6. Buscar series por categoria");
             System.out.println("7. Buscar series por temporadas y evaluacion");
+            System.out.println("8. Buscar episodios por titulo");
             System.out.println("0. Salir");
             System.out.print("Escribe la opcion que deseas: ");
             opcion = scanner.nextInt();
@@ -46,6 +47,7 @@ public class Principal {
                 case 5 -> buscarTop5Series();
                 case 6 -> buscarSeriesPorCategoria();
                 case 7 -> buscarSeriesPorTemporadasYEvaluacion();
+                case 8 -> buscarEpisodiosPorTitulo();
                 case 0 -> System.out.println("Cerrando aplicacion...");
                 default -> System.out.println("Opcion no valida");
             }
@@ -153,5 +155,16 @@ public class Principal {
         // var series = serieRepository.buscarPorTemporadasYEvaluacion(temporadas, evaluacion);
         var series = serieRepository.buscarPorTemporadasYEvaluacionJPQL(temporadas, evaluacion);
         series.forEach(System.out::println);
+    }
+    
+    private void buscarEpisodiosPorTitulo() {
+        System.out.print("Escribe el titulo del episodio que deseas buscar: ");
+        var tituloEpisodio = scanner.nextLine();
+        var episodios = serieRepository.episodiosPorNombre(tituloEpisodio);
+        episodios.forEach(episodio -> {
+            System.out.printf("Serie: %s, Temporada: %d, Episodio: %d, Titulo: %s, Evaluacion: %.2f, Fecha de estreno: %s%n",
+                    episodio.getSerie().getTitulo(), episodio.getTemporada(), episodio.getNumeroEpisodio(), episodio.getTitulo(),
+                    episodio.getEvaluacion(), episodio.getFechaEstreno() != null ? episodio.getFechaEstreno().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "N/A");
+        });
     }
 }

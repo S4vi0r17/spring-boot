@@ -1,6 +1,7 @@
 package com.savior.screenmatch.repository;
 
 import com.savior.screenmatch.model.Categoria;
+import com.savior.screenmatch.model.Episodio;
 import com.savior.screenmatch.model.Serie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,7 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
     // JPQL Queries
     @Query("SELECT s FROM Serie s WHERE s.totalTemporadas <= :totalTemporadas AND s.evaluacion >= :evaluacion")
     List<Serie> buscarPorTemporadasYEvaluacionJPQL(Integer totalTemporadas, Double evaluacion);
+
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE e.titulo ILIKE %:nombreEpisodio%")
+    List<Episodio> episodiosPorNombre(String nombreEpisodio);
 }
