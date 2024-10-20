@@ -149,7 +149,9 @@ public class Principal {
         var temporadas = scanner.nextInt();
         System.out.print("Escribe la evaluacion: ");
         var evaluacion = scanner.nextDouble();
-        var series = serieRepository.findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(temporadas, evaluacion);
+        // var series = serieRepository.findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(temporadas, evaluacion);
+        // var series = serieRepository.buscarPorTemporadasYEvaluacion(temporadas, evaluacion);
+        var series = serieRepository.buscarPorTemporadasYEvaluacionJPQL(temporadas, evaluacion);
         series.forEach(System.out::println);
     }
 }
