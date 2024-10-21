@@ -1,5 +1,6 @@
 package com.savior.screenmatch.service;
 
+import com.savior.screenmatch.dto.EpisodioDto;
 import com.savior.screenmatch.dto.SerieDto;
 import com.savior.screenmatch.model.Serie;
 import com.savior.screenmatch.repository.SerieRepository;
@@ -54,5 +55,39 @@ public class SerieService {
                         serie.getActores()
                 ))
                 .orElse(null);
+    }
+
+    public List<EpisodioDto> getAllSeasons(Long id) {
+        return serieRepository.findById(id)
+                .map(serie -> serie.getEpisodios().stream()
+                        .map(episodio -> new EpisodioDto(
+                                episodio.getTemporada(),
+                                episodio.getTitulo(),
+                                episodio.getNumeroEpisodio()
+                        ))
+                        .toList())
+                .orElse(null);
+    }
+
+    public List<EpisodioDto> getSeason(Long id, Integer temporada) {
+        /*
+        * return serieRepository.findById(id)
+                .map(serie -> serie.getEpisodios().stream()
+                        .filter(episodio -> episodio.getTemporada().equals(temporada))
+                        .map(episodio -> new EpisodioDto(
+                                episodio.getTemporada(),
+                                episodio.getTitulo(),
+                                episodio.getNumeroEpisodio()
+                        ))
+                        .toList())
+                .orElse(null);
+        */
+        return serieRepository.getSeasonBySerieNumber(id, temporada).stream()
+                .map(episodio -> new EpisodioDto(
+                        episodio.getTemporada(),
+                        episodio.getTitulo(),
+                        episodio.getNumeroEpisodio()
+                ))
+                .toList();
     }
 }

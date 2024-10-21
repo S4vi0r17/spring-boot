@@ -1,6 +1,8 @@
 package com.savior.screenmatch.controller;
 
+import com.savior.screenmatch.dto.EpisodioDto;
 import com.savior.screenmatch.dto.SerieDto;
+import com.savior.screenmatch.model.Episodio;
 import com.savior.screenmatch.repository.SerieRepository;
 import com.savior.screenmatch.service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +38,15 @@ public class SerieController {
     @GetMapping("/{id}")
     public SerieDto getSerieById(@PathVariable Long id) {
         return serieService.getSerieById(id);
+    }
+
+    @GetMapping("/{id}/temporadas/todas")
+    public List<EpisodioDto> getAllSeasons(@PathVariable Long id) {
+        return serieService.getAllSeasons(id);
+    }
+
+    @GetMapping("/{id}/temporadas/{temporada}")
+    public List<EpisodioDto> getSeason(@PathVariable Long id, @PathVariable Integer temporada) {
+        return serieService.getSeason(id, temporada);
     }
 }
