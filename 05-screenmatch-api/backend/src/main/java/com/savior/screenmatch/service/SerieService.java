@@ -2,6 +2,7 @@ package com.savior.screenmatch.service;
 
 import com.savior.screenmatch.dto.EpisodioDto;
 import com.savior.screenmatch.dto.SerieDto;
+import com.savior.screenmatch.model.Categoria;
 import com.savior.screenmatch.model.Serie;
 import com.savior.screenmatch.repository.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,10 @@ public class SerieService {
                         episodio.getNumeroEpisodio()
                 ))
                 .toList();
+    }
+
+    public List<SerieDto> getSeriesByCategory(String categoria) {
+        Categoria cat = Categoria.fromStringEspanol(categoria);
+        return convierteDatos(serieRepository.findByGenero(cat));
     }
 }
