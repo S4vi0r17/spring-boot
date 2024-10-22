@@ -1,14 +1,18 @@
 package med.voll.api.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import med.voll.api.medico.CreateMedicoDto;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/hello")
-public class HolaController {
+@RequestMapping("/medicos")
+public class MedicoController {
     @GetMapping
     public String hello() {
         return "Hello, world!";
+    }
+
+    @PostMapping
+    public void create(@RequestBody CreateMedicoDto createMedicoDto) {
+        System.out.println("Medico: " + createMedicoDto.nombre());
     }
 }
