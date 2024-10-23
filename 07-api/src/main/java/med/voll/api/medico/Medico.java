@@ -1,13 +1,13 @@
-package med.voll.api.medico.model;
+package med.voll.api.medico;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.medico.Direccion;
 import med.voll.api.medico.dto.CreateMedicoDto;
 import med.voll.api.medico.dto.Especialidad;
+import med.voll.api.shared.Direccion;
 
 @Entity
 @Table(name = "medicos")

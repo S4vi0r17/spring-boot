@@ -1,10 +1,9 @@
-package med.voll.api.medico;
+package med.voll.api.shared;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.direccion.DireccionDto;
 
 @Embeddable
 @Getter
