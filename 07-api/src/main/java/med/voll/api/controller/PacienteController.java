@@ -4,12 +4,13 @@ import jakarta.validation.Valid;
 import med.voll.api.paciente.Paciente;
 import med.voll.api.paciente.PacienteRepository;
 import med.voll.api.paciente.dto.CreatePacienteDto;
+import med.voll.api.paciente.dto.ListPacienteDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("pacientes")
@@ -19,8 +20,14 @@ public class PacienteController {
     private PacienteRepository repository;
 
     @PostMapping
-    @Transactional
+    @Transactional // sirve para que se haga un rollback si hay un error
     public void registrar(@RequestBody @Valid CreatePacienteDto datos) {
         repository.save(new Paciente(datos));
+    }
+
+    @GetMapping
+    public Page<ListPacienteDto> list(@PageableDefault(sort = {"nombre"}) Pageable pageable) {
+        // page, size, sort
+        return repository.findAll(pageable).map(ListPacienteDto::new);
     }
 }
