@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.medico.direccion.Direccion;
+import med.voll.api.medico.Direccion;
 import med.voll.api.medico.dto.CreateMedicoDto;
 import med.voll.api.medico.dto.Especialidad;
 
@@ -22,6 +22,7 @@ public class Medico {
 
     private String nombre;
     private String email;
+    private String telefono;
     private String documento;
 
     @Enumerated(EnumType.STRING)
@@ -33,6 +34,7 @@ public class Medico {
     public Medico(CreateMedicoDto createMedicoDto) {
         this.nombre = createMedicoDto.nombre();
         this.email = createMedicoDto.email();
+        this.telefono = createMedicoDto.telefono();
         this.documento = createMedicoDto.documento();
         this.especialidad = createMedicoDto.especialidad();
         this.direccion = new Direccion(createMedicoDto.direccion());

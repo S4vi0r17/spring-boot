@@ -1,4 +1,4 @@
-package med.voll.api.medico.direccion;
+package med.voll.api.medico;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
