@@ -1,5 +1,6 @@
 package med.voll.api.medico;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,8 @@ public class Medico {
 
     private String nombre;
     private String email;
+
+    // @JsonIgnore // Uncomment this line to hide the phone number from the response
     private String telefono;
     private String documento;
 
