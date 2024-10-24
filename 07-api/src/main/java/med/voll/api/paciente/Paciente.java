@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.paciente.dto.UpdatePacienteDto;
 import med.voll.api.shared.Direccion;
 import med.voll.api.paciente.dto.CreatePacienteDto;
 
@@ -33,5 +34,17 @@ public class Paciente {
         this.telefono = datos.telefono();
         this.documentoIdentidad = datos.documentoIdentidad();
         this.direccion = new Direccion(datos.direccion());
+    }
+
+    public void update(UpdatePacienteDto updatePacienteDto) {
+        if (updatePacienteDto.nombre() != null) {
+            this.nombre = updatePacienteDto.nombre();
+        }
+        if (updatePacienteDto.email() != null) {
+            this.email = updatePacienteDto.email();
+        }
+        if (updatePacienteDto.telefono() != null) {
+            this.telefono = updatePacienteDto.telefono();
+        }
     }
 }

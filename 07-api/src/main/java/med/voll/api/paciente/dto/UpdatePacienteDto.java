@@ -1,12 +1,12 @@
-package med.voll.api.medico.dto;
+package med.voll.api.paciente.dto;
 
 import jakarta.validation.constraints.NotNull;
 import med.voll.api.shared.DireccionDto;
 
-public record UpdateMedicoDto(
-//        @NotNull
-//        Long id,
+public record UpdatePacienteDto(
+        @NotNull
+        Long id,
         String nombre,
-        String documento,
-        DireccionDto direccion
+        String email,
+        String telefono
 ) { }
