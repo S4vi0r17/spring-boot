@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.medico.dto.CreateMedicoDto;
 import med.voll.api.medico.dto.Especialidad;
+import med.voll.api.medico.dto.UpdateMedicoDto;
 import med.voll.api.shared.Direccion;
 
 @Entity
@@ -27,6 +28,7 @@ public class Medico {
     // @JsonIgnore // Uncomment this line to hide the phone number from the response
     private String telefono;
     private String documento;
+    private boolean activo;
 
     @Enumerated(EnumType.STRING)
     private Especialidad especialidad;
@@ -39,7 +41,24 @@ public class Medico {
         this.email = createMedicoDto.email();
         this.telefono = createMedicoDto.telefono();
         this.documento = createMedicoDto.documento();
+        this.activo = true;
         this.especialidad = createMedicoDto.especialidad();
         this.direccion = new Direccion(createMedicoDto.direccion());
+    }
+
+    public void update(UpdateMedicoDto updateMedicoDto) {
+        if (updateMedicoDto.nombre() != null) {
+            this.nombre = updateMedicoDto.nombre();
+        }
+        if (updateMedicoDto.documento() != null) {
+            this.email = updateMedicoDto.documento();
+        }
+        if (updateMedicoDto.direccion() != null) {
+            this.direccion.update(updateMedicoDto.direccion());
+        }
+    }
+
+    public void logicalDelete() {
+        this.activo = false;
     }
 }
