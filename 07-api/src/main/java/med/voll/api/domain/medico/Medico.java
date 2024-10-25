@@ -1,15 +1,14 @@
-package med.voll.api.medico;
+package med.voll.api.domain.medico;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.medico.dto.CreateMedicoDto;
-import med.voll.api.medico.dto.Especialidad;
-import med.voll.api.medico.dto.UpdateMedicoDto;
-import med.voll.api.shared.Direccion;
+import med.voll.api.domain.medico.dto.CreateMedicoDto;
+import med.voll.api.domain.medico.dto.Especialidad;
+import med.voll.api.domain.medico.dto.UpdateMedicoDto;
+import med.voll.api.domain.shared.Direccion;
 
 @Entity
 @Table(name = "medicos")

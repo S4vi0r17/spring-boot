@@ -1,4 +1,4 @@
-package med.voll.api.paciente.dto;
+package med.voll.api.domain.paciente.dto;
 
 public record PacienteResponse(
         Long id,

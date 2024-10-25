@@ -1,4 +1,4 @@
-package med.voll.api.shared;
+package med.voll.api.domain.shared;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
