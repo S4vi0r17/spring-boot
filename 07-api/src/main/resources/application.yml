@@ -12,6 +12,10 @@ spring:
             hibernate:
                 format_sql: true
 
+server:
+    error:
+        include-stacktrace: never
+
 # spring.data.web.pageable.page-parameter=pagina
 # spring.data.web.pageable.size-parameter=tamano
 # spring.data.web.sort.sort-parameter=orden
