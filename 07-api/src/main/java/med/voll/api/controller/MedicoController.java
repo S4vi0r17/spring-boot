@@ -7,11 +7,15 @@ import med.voll.api.medico.dto.CreateMedicoDto;
 import med.voll.api.medico.Medico;
 import med.voll.api.medico.dto.ListMedicoDto;
 import med.voll.api.medico.dto.UpdateMedicoDto;
+import med.voll.api.paciente.dto.MedicoResponse;
+import med.voll.api.shared.DireccionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.stream.Collectors;
 
@@ -23,15 +27,59 @@ public class MedicoController {
     private MedicoRepository medicoRepository;
 
     @PostMapping
-    public void create(@RequestBody @Valid CreateMedicoDto createMedicoDto) {
-        medicoRepository.save(new Medico(createMedicoDto));
+    public ResponseEntity<MedicoResponse> create(
+            @RequestBody @Valid CreateMedicoDto createMedicoDto,
+            UriComponentsBuilder uriComponentsBuilder
+    ) {
+        Medico medico = medicoRepository.save(new Medico(createMedicoDto));
+        MedicoResponse medicoResponse = new MedicoResponse(
+                medico.getId(),
+                medico.getNombre(),
+                medico.getDocumento(),
+                medico.getEmail(),
+                new DireccionDto(
+                        medico.getDireccion().getCalle(),
+                        medico.getDireccion().getDistrito(),
+                        medico.getDireccion().getCiudad(),
+                        medico.getDireccion().getNumero(),
+                        medico.getDireccion().getComplemento()
+                )
+        );
+
+        return ResponseEntity.created(
+                uriComponentsBuilder.path("/medicos/{id}")
+                        .buildAndExpand(medico.getId())
+                        .toUri()
+        ).body(medicoResponse);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MedicoResponse> get(@PathVariable Long id) {
+        Medico medico = medicoRepository.getReferenceById(id);
+        MedicoResponse medicoResponse = new MedicoResponse(
+                medico.getId(),
+                medico.getNombre(),
+                medico.getDocumento(),
+                medico.getEmail(),
+                new DireccionDto(
+                        medico.getDireccion().getCalle(),
+                        medico.getDireccion().getDistrito(),
+                        medico.getDireccion().getCiudad(),
+                        medico.getDireccion().getNumero(),
+                        medico.getDireccion().getComplemento()
+                )
+        );
+
+        return ResponseEntity.ok(medicoResponse);
     }
 
     @GetMapping
-    public Page<ListMedicoDto> list(@PageableDefault(size = 2) Pageable paginacion) {
+    public ResponseEntity<Page<ListMedicoDto>> list(@PageableDefault(size = 2) Pageable paginacion) {
         // http://localhost:8080/medicos?size=10&page=0&sort=nombre
         // return medicoRepository.findAll(paginacion).map(ListMedicoDto::new);
-        return medicoRepository.findByActivoTrue(paginacion).map(ListMedicoDto::new);
+        return ResponseEntity.ok(
+                medicoRepository.findAll(paginacion).map(ListMedicoDto::new)
+        );
         /*
         *    return medicoRepository.findAll().stream()
         *        .map(ListMedicoDto::new)
@@ -41,10 +89,25 @@ public class MedicoController {
 
     @PutMapping("/{id}")
     @Transactional
-    public void update(@PathVariable Long id, @RequestBody @Valid UpdateMedicoDto updateMedicoDto) {
+    public ResponseEntity<MedicoResponse> update(@PathVariable Long id, @RequestBody @Valid UpdateMedicoDto updateMedicoDto) {
         Medico medico = medicoRepository.getReferenceById(id);
         medico.update(updateMedicoDto);
         medicoRepository.save(medico);
+        return ResponseEntity.ok(
+                new MedicoResponse(
+                        medico.getId(),
+                        medico.getNombre(),
+                        medico.getDocumento(),
+                        medico.getEmail(),
+                        new DireccionDto(
+                                medico.getDireccion().getCalle(),
+                                medico.getDireccion().getDistrito(),
+                                medico.getDireccion().getCiudad(),
+                                medico.getDireccion().getNumero(),
+                                medico.getDireccion().getComplemento()
+                        )
+                )
+        );
     }
 
     @DeleteMapping("/{id}")
