@@ -1,4 +1,4 @@
-package med.voll.api.paciente.dto;
+package med.voll.api.medico.dto;
 
 import med.voll.api.shared.DireccionDto;
 
