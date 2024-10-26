@@ -1,6 +1,6 @@
 package med.voll.api.domain.user;
 
-public record AuthenticateUser(
+public record AuthenticateUserDto(
         String username,
         String password
 ) { }
