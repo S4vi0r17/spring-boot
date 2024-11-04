@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -115,5 +116,24 @@ public class MedicoController {
         // Logical delete
         Medico medico = medicoRepository.getReferenceById(id);
         medico.logicalDelete();
+    }
+
+    @GetMapping("detail/{id}")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<?> detail(@PathVariable Long id) {
+        var medico = medicoRepository.getReferenceById(id);
+        return ResponseEntity.ok(new MedicoResponse(
+                medico.getId(),
+                medico.getNombre(),
+                medico.getDocumento(),
+                medico.getEmail(),
+                new DireccionDto(
+                        medico.getDireccion().getCalle(),
+                        medico.getDireccion().getDistrito(),
+                        medico.getDireccion().getCiudad(),
+                        medico.getDireccion().getNumero(),
+                        medico.getDireccion().getComplemento()
+                )
+        ));
     }
 }
