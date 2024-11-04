@@ -118,22 +118,22 @@ public class MedicoController {
         medico.logicalDelete();
     }
 
-    @GetMapping("detail/{id}")
-    @Secured("ROLE_ADMIN")
-    public ResponseEntity<?> detail(@PathVariable Long id) {
-        var medico = medicoRepository.getReferenceById(id);
-        return ResponseEntity.ok(new MedicoResponse(
-                medico.getId(),
-                medico.getNombre(),
-                medico.getDocumento(),
-                medico.getEmail(),
-                new DireccionDto(
-                        medico.getDireccion().getCalle(),
-                        medico.getDireccion().getDistrito(),
-                        medico.getDireccion().getCiudad(),
-                        medico.getDireccion().getNumero(),
-                        medico.getDireccion().getComplemento()
-                )
-        ));
-    }
+//    @GetMapping("detail/{id}")
+//    @Secured("ROLE_ADMIN")
+//    public ResponseEntity<?> detail(@PathVariable Long id) {
+//        var medico = medicoRepository.getReferenceById(id);
+//        return ResponseEntity.ok(new MedicoResponse(
+//                medico.getId(),
+//                medico.getNombre(),
+//                medico.getDocumento(),
+//                medico.getEmail(),
+//                new DireccionDto(
+//                        medico.getDireccion().getCalle(),
+//                        medico.getDireccion().getDistrito(),
+//                        medico.getDireccion().getCiudad(),
+//                        medico.getDireccion().getNumero(),
+//                        medico.getDireccion().getComplemento()
+//                )
+//        ));
+//    }
 }
