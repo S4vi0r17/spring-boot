@@ -24,6 +24,7 @@ public class Paciente {
     private String email;
     private String documentoIdentidad;
     private String telefono;
+    private boolean activo;
 
     @Embedded
     private Direccion direccion;
