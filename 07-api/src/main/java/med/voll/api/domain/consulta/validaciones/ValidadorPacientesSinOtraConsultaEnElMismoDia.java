@@ -16,7 +16,7 @@ public class ValidadorPacientesSinOtraConsultaEnElMismoDia implements ValidadorD
         var primerHorario = datosReservaConsulta.fecha().withHour(7);
         var ultimoHorario = datosReservaConsulta.fecha().withHour(18);
 
-        if (consultaRepository.existByPacienteIdAndFechaBetween(datosReservaConsulta.idPaciente(), primerHorario, ultimoHorario)) {
+        if (consultaRepository.existsByPacienteIdAndFechaBetween(datosReservaConsulta.idPaciente(), primerHorario, ultimoHorario)) {
             throw new ValidacionException("El paciente ya tiene una consulta reservada para el mismo día");
         }
     }
