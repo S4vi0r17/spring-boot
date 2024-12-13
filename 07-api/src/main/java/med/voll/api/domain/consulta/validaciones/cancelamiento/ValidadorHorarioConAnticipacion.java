@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-@Component
+@Component("ValidadorConsultaConAnticipacionCancelamiento")
 public class ValidadorHorarioConAnticipacion implements ValidadorCancelamientoDeConsulta {
 
     @Autowired
@@ -19,7 +19,7 @@ public class ValidadorHorarioConAnticipacion implements ValidadorCancelamientoDe
     public void validar(DatosCancelamientoConsulta datos) {
         var consulta = repository.getReferenceById(datos.idConsulta());
         var ahora = LocalDateTime.now();
-        var diferenciaEnHoras = Duration.between(ahora, consulta.getData()).toHours();
+        var diferenciaEnHoras = Duration.between(ahora, consulta.getFecha()).toHours();
 
         if (diferenciaEnHoras < 24) {
             throw new ValidacionException("¡La consulta solo puede ser cancelada con anticipación mínima de 24 horas!");

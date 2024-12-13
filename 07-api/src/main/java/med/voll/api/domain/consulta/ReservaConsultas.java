@@ -1,7 +1,8 @@
 package med.voll.api.domain.consulta;
 
 import med.voll.api.domain.ValidacionException;
-import med.voll.api.domain.consulta.validaciones.ValidadorDeConsultas;
+import med.voll.api.domain.consulta.validaciones.cancelamiento.ValidadorCancelamientoDeConsulta;
+import med.voll.api.domain.consulta.validaciones.reserva.ValidadorDeConsultas;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.paciente.PacienteRepository;
@@ -25,9 +26,12 @@ public class ReservaConsultas {
     @Autowired
     private List<ValidadorDeConsultas> validaciones;
 
-    public void reservar(DatosReservaConsulta datosReservaConsulta) {
+    @Autowired
+    private List<ValidadorCancelamientoDeConsulta> validadoresCancelamiento;
 
-        if (!pacienteRepository.existsById(datosReservaConsulta.idPaciente())) {
+    public DatosDetalleConsulta reservar(DatosReservaConsulta datosReservaConsulta) {
+
+        if ( datosReservaConsulta.idPaciente() != null && !pacienteRepository.existsById(datosReservaConsulta.idPaciente())) {
             throw new ValidacionException("Paciente no encontrado con el id: " + datosReservaConsulta.idPaciente());
         }
 
@@ -39,9 +43,16 @@ public class ReservaConsultas {
         validaciones.forEach(validador -> validador.validar(datosReservaConsulta));
 
         var medico = elegirMedico(datosReservaConsulta);
+
+        if ( medico == null ) {
+            throw new ValidacionException("No se encontró un médico disponible para la especialidad y fecha informada");
+        }
+
         var paciente = pacienteRepository.findById(datosReservaConsulta.idPaciente()).get();
         var consulta = new Consulta(null, medico, paciente, datosReservaConsulta.fecha(), null);
         consultaRepository.save(consulta);
+
+        return new DatosDetalleConsulta(consulta);
     }
 
     private Medico elegirMedico(DatosReservaConsulta datosReservaConsulta) {
@@ -56,11 +67,14 @@ public class ReservaConsultas {
         return medicoRepository.elegirMedicoAlAzarDisponibleEnEsaFecha(datosReservaConsulta.fecha(), datosReservaConsulta.especialidad());
     }
 
-    public void cancelar(DatosCancelamientoConsulta datosCacelamientoConsulta) {
-        if (!consultaRepository.existsById(datosCacelamientoConsulta.idConsulta())) {
-            throw new ValidacionException("Id de la consulta informado no existe!");
+    public void cancelar(DatosCancelamientoConsulta datos) {
+        if (!consultaRepository.existsById(datos.idConsulta())) {
+            throw new ValidacionException("¡El Id informado de la consulta no existe!");
         }
-        var consulta = consultaRepository.getReferenceById(datosCacelamientoConsulta.idConsulta());
-        consulta.cancelar(datosCacelamientoConsulta.motivo());
+
+        validadoresCancelamiento.forEach(v -> v.validar(datos));
+
+        var consulta = consultaRepository.getReferenceById(datos.idConsulta());
+        consulta.cancelar(datos.motivo());
     }
 }
