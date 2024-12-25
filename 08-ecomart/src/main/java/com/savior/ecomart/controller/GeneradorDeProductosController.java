@@ -15,6 +15,12 @@ public class GeneradorDeProductosController {
         this.chatClient = chatClientBuilder.build();
     }
 
+    /*
+    public GeneradorDeProductosController(@Qualifier("gpt-4o") ChatClient chatClient) {
+        this.chatClient = chatClient;
+    }
+     */
+
     @GetMapping
     public String generarProductos() {
         var pregunta = "Generar 5 productos ecologicos";
