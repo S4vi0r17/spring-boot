@@ -1,0 +1,495 @@
+{
+	"info": {
+		"_postman_id": "6c107392-11e0-456e-9b35-93c79e76d57b",
+		"name": "Spring Boot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31371030"
+	},
+	"item": [
+		{
+			"name": "Medicos",
+			"item": [
+				{
+					"name": "registrar medicos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Axel Iman\",\r\n    \"email\": \"asd5@asd4.com\",\r\n    \"documento\": \"65776328\",\r\n    \"telefono\": 123456,\r\n    \"especialidad\": \"PEDIATRIA\",\r\n    \"direccion\" : {\r\n        \"calle\": \"calle 1\",\r\n        \"distrito\": \"distrito 1\",\r\n        \"ciudad\": \"Lima\",\r\n        \"numero\": \"1\",\r\n        \"complemento\": \"a\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar medico",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Damaris Mi amor skere\",\r\n    \"email\": \"asd3@asd2.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicos/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar medico",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Damaris Lujan\",\r\n    \"email\": \"asd3@asd2.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicos/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get medico",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNoby5sdWphbiIsImlzcyI6InZvbGwgbWVkIiwiaWQiOjEsImV4cCI6MTczMTY1MjYxNH0.RMqDdl9KIELhRxBOfgyvjQU4y9IAv60kMG5kkhD6YjY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicos/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail medico",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Damaris Lujan\",\r\n    \"email\": \"asd3@asd2.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicos/detail/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos",
+								"detail",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar medicos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNoby5sdWphbiIsImlzcyI6InZvbGwgbWVkIiwiaWQiOjEsImV4cCI6MTczMDY5NjI3M30.76Ln5HYdz0q8tzjwypwHx5HNFKFFUq7T35LxgV2qOtc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicos?size=10&page=0&sort=nombre",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "nombre"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pacientes",
+			"item": [
+				{
+					"name": "actualizar paciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"Damaris Mi amor\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar paciente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get paciente",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNoby5sdWphbiIsImlzcyI6InZvbGwgbWVkIiwiaWQiOjEsImV4cCI6MTczNDA2ODgyOH0._Qn1iRic82J8GikPL5Bf10A1WyigltUqOjgdMkPz7NE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registrar pacientes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Pinga Loca\",\r\n    \"email\": \"asd4@asd3.com\",\r\n    \"telefono\": \"3412358592\",\r\n    \"documentoIdentidad\": \"1514523\",\r\n    \"direccion\" : {\r\n        \"calle\": \"calle 1\",\r\n        \"distrito\": \"distrito 1\",\r\n        \"ciudad\": \"Lima\",\r\n        \"numero\": \"1\",\r\n        \"complemento\": \"a\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar pacientes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNoby5sdWphbiIsImlzcyI6InZvbGwgbWVkIiwiaWQiOjEsImV4cCI6MTczMTY1MjYxNH0.RMqDdl9KIELhRxBOfgyvjQU4y9IAv60kMG5kkhD6YjY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Nacho Lujan\",\r\n    \"email\": \"asd@asd.com\",\r\n    \"documento\": \"123456\",\r\n    \"especialidad\": \"ORTOPEDIA\",\r\n    \"direccion\" : {\r\n        \"calle\": \"calle 1\",\r\n        \"distrito\": \"distrito 1\",\r\n        \"ciudad\": \"Lima\",\r\n        \"numero\": \"1\",\r\n        \"complemento\": \"a\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"nacho.lujan\",\r\n    \"password\": \"elpepe1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "consultas",
+			"item": [
+				{
+					"name": "reservar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNoby5sdWphbiIsImlzcyI6InZvbGwgbWVkIiwiaWQiOjEsImV4cCI6MTczMTY1MjYxNH0.RMqDdl9KIELhRxBOfgyvjQU4y9IAv60kMG5kkhD6YjY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idMedico\": 1,\r\n    \"idPaciente\": 1,\r\n    \"fecha\": \"2024-11-20T10:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/consultas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
